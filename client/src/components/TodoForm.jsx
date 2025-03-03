@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo } from "../store/todoSlice";
+import { addTodo, removeTodo } from "../store/todoSlice";
 
 const TodoForm = () => {
-  const [todo, setTodo] = useState({ text: "", isCompleted: false });
+  const [todo, setTodo] = useState({
+    id: Date.now(),
+    text: "",
+    isCompleted: false,
+  });
   const todos = useSelector((state) => state.todos);
   const dispatch = useDispatch();
   //   const [allTodos, setAlltodos] = useState(["Film", "App", "Music"]);
@@ -31,7 +35,12 @@ const TodoForm = () => {
       </form>
       <ol>
         {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <li key={index}>
+            <span>{todo}</span>
+            <button onClick={() => dispatch(removeTodo(index))}>
+              Remove Todo
+            </button>
+          </li>
         ))}
       </ol>
     </div>
