@@ -13,8 +13,15 @@ const todoSlice = createSlice({
       state.push(action.payload);
       localStorage.setItem("todos", JSON.stringify(state));
     },
+    removeTodo: (state, action) => {
+      //   state.splice(action.payload, 1);
+      //   localStorage.setItem("todos", JSON.stringify(state));
+      const newState = state.filter((_, index) => index !== action.payload);
+      localStorage.setItem("todos", JSON.stringify(newState));
+      return newState;
+    },
   },
 });
 
-export const { addTodo } = todoSlice.actions;
+export const { addTodo, removeTodo } = todoSlice.actions;
 export default todoSlice.reducer;
