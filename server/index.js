@@ -20,8 +20,6 @@ app.use("/notes", (req, res) => {
 
 app.use("/add", (req, res) => {
   const note = req.body;
-  console.log(note);
-
   database.push(note);
   res.send(database);
 });
