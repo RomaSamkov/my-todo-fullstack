@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addNote, deleteNote } from "../store/noteSlice";
+import { addNote, deleteNote, fetchNotes } from "../store/noteSlice";
 
 const NoteForm = () => {
   const [note, setNote] = useState("");
-  const notes = useSelector((state) => state.notes);
+  const { items: notes, status, error } = useSelector((state) => state.notes);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchNotes());
+  }, [dispatch]);
 
   const addNewNote = (e) => {
     e.preventDefault();
@@ -28,6 +32,8 @@ const NoteForm = () => {
       </form>
       <div>
         <h2>Notes:</h2>
+        {status === "loading" && <div>...Loading</div>}
+        {error && <p>Error: {error}</p>}
         <ol>
           {notes.map((note, index) => (
             <li key={index}>
