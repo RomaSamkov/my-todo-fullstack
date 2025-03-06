@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const API_URL = "http://localhost:5000/api/notes";
+const API_URL = "http://localhost:5000/api";
 
 export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
-  const response = await fetch("http://localhost:5000/api/notes");
+  const response = await fetch(`${API_URL}/notes`);
   const data = await response.json();
   return data;
 });
 
 export const addNote = createAsyncThunk("notes/addNote", async (note) => {
-  const response = await fetch("http://localhost:5000/api/add", {
+  const response = await fetch(`${API_URL}/add`, {
     method: "POST",
     headers: { "Content-Type": "text/plain" },
     body: note,
@@ -21,7 +21,7 @@ export const addNote = createAsyncThunk("notes/addNote", async (note) => {
 export const deleteNote = createAsyncThunk(
   "notes/deleteNote",
   async (index) => {
-    const response = await fetch("http://localhost:5000/api/delete", {
+    const response = await fetch(`${API_URL}/delete`, {
       method: "DELETE",
       headers: { "Content-Type": "text/plain" },
       body: index.toString(),
