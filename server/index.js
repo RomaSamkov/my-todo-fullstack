@@ -14,13 +14,19 @@ app.use(
   })
 );
 
-app.use("/notes", (req, res) => {
+app.use("/api/notes", (req, res) => {
   res.send(database);
 });
 
-app.use("/add", (req, res) => {
+app.use("/api/add", (req, res) => {
   const note = req.body;
   database.push(note);
+  res.send(database);
+});
+
+app.use("/api/delete", (req, res) => {
+  const index = req.body;
+  database.splice(index, 1);
   res.send(database);
 });
 
