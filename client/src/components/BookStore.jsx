@@ -2,13 +2,12 @@ import { useState } from "react";
 
 const BookStore = () => {
   const [book, setBook] = useState({ author: "", title: "" });
-  const [allBooks, setAllBooks] = useState({});
+  const [allBooks, setAllBooks] = useState([]);
 
   const addBook = (e) => {
     e.preventDefault();
     if (book.author.trim() === "" || book.title.trim() === "") return;
-    const id = Date.now().toString();
-    setAllBooks((prevBooks) => ({ ...prevBooks, [id]: book }));
+    setAllBooks((prevBooks) => [...prevBooks, book]);
     setBook({ author: "", title: "" });
     console.log(book);
   };
@@ -38,8 +37,8 @@ const BookStore = () => {
         <button onClick={addBook}>Add Book</button>
       </form>
       <ul>
-        {Object.entries(allBooks).map(([id, b]) => (
-          <li key={id}>
+        {allBooks.map((b, i) => (
+          <li key={i}>
             {b.author} - {b.title}
           </li>
         ))}
