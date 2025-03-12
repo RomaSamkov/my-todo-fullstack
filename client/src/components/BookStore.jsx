@@ -1,21 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BookStore = () => {
   const [book, setBook] = useState({ author: "", title: "" });
   const [allBooks, setAllBooks] = useState([]);
 
-  const addBook = (e) => {
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/books");
+      const dataBooks = await response.json();
+      setAllBooks(dataBooks);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const addBook = async (e) => {
     e.preventDefault();
     if (book.author.trim() === "" || book.title.trim() === "") return;
-    setAllBooks((prevBooks) => [...prevBooks, book]);
-    setBook({ author: "", title: "" });
-    console.log(book);
+
+    try {
+      const response = await fetch("http://localhost:5000/api/v1/addbook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(book),
+      });
+
+      console.log("Статус відповіді сервера:", response.status);
+
+      if (!response.ok) throw new Error("Failed to add book");
+
+      // Оновлюємо список книг після додавання
+      console.log("Книга успішно додана!");
+      fetchBooks();
+      setBook({ author: "", title: "" }); // Очищаємо поля
+    } catch (error) {
+      console.error("Error adding book:", error);
+    }
   };
   return (
     <div className="">
       <form className="flex flex-col items-center gap-2">
         <div className="flex gap-2">
-          <label htmlFor="note">Author:</label>
+          <label htmlFor="author">Author:</label>
           <input
             id="author"
             name="author"
@@ -25,7 +55,7 @@ const BookStore = () => {
           />
         </div>
         <div className="flex gap-2">
-          <label htmlFor="note">Title:</label>
+          <label htmlFor="title">Title:</label>
           <input
             id="title"
             name="title"
