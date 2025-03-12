@@ -1,11 +1,12 @@
 import express from "express";
+import booksRoutes from "./routes/booksRoutes.js";
 import cors from "cors";
 import { database } from "./database.js";
 
 const port = 5000;
 
 const app = express();
-app.use(express.text());
+app.use(express.json());
 
 app.use(
   cors({
@@ -29,6 +30,8 @@ app.use("/api/delete", (req, res) => {
   database.splice(index, 1);
   res.send(database);
 });
+
+app.use("/api/v1", booksRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port:${port}`);
