@@ -10,7 +10,7 @@ const BookStore = () => {
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/v1/books");
+      const response = await fetch("http://localhost:5000/api/books");
       const dataBooks = await response.json();
       setAllBooks(dataBooks);
     } catch (error) {
@@ -23,7 +23,7 @@ const BookStore = () => {
     if (book.author.trim() === "" || book.title.trim() === "") return;
 
     try {
-      const response = await fetch("http://localhost:5000/api/v1/addbook", {
+      const response = await fetch("http://localhost:5000/api/books/addbook", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(book),
