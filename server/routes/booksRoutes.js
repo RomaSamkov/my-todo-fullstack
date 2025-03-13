@@ -1,16 +1,10 @@
 import express from "express";
-import { databaseBooks } from "../database.js";
+import { addBook, getBooks } from "../controllers/booksController.js";
 
 const router = express.Router();
 
-router.get("/books", (req, res) => {
-  res.send(databaseBooks);
-});
+router.get("/books", getBooks);
 
-router.post("/addbook", (req, res) => {
-  const book = req.body;
-  databaseBooks.push(book);
-  res.send(databaseBooks);
-});
+router.post("/books/addbook", addBook);
 
 export default router;
