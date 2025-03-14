@@ -2,7 +2,9 @@
 
 ## In this project, I explore different technologies, such as:
 
-```- React
+```
+
+- React
 - work with string, array, object
 - work with form, input
 - Redux Toolkit
@@ -11,4 +13,5 @@
 - fetch
 - useState, useEffect
 - express
+
 ```
