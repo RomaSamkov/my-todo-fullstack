@@ -3,7 +3,6 @@
 ## In this project, I explore different technologies, such as:
 
 ```
-
 - React
 - useState, useEffect
 - work with string, array, object
@@ -13,5 +12,4 @@
 - axios
 - fetch
 - express
-
 ```
