@@ -5,13 +5,13 @@
 ```
 
 - React
+- useState, useEffect
 - work with string, array, object
 - work with form, input
 - Redux Toolkit
 - localstorage
 - axios
 - fetch
-- useState, useEffect
 - express
 
 ```
